@@ -21,7 +21,12 @@ RUN set -x \
         cmake \
     ' \
     && apt-get -qq update \
-    && apt-get -qq --no-install-recommends install $buildDeps 
-
+    && apt-get -qq --no-install-recommends install $buildDeps \
+    && rm -rf /var/lib/apt/lists/* \
+    \
+    && mkdir -p /usr/local/src/xmr-stak-amd/build \
+    && cd /usr/local/src/xmr-stak-amd/ \
+    && curl -sL https://github.com/fireice-uk/xmr-stak-amd/archive/$XMR_STAK_AMD_VERSION.tar.gz | tar -xz --strip-components=1 
+    
 ENTRYPOINT ["xmr-stak-amd"]
 CMD ["/usr/local/etc/config.txt"]
