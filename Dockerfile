@@ -20,13 +20,7 @@ RUN set -x \
         libssl-dev \ 
         cmake \
     ' \
-    && apt-get -qq update \
-    && apt-get -qq --no-install-recommends install $buildDeps \
-    && rm -rf /var/lib/apt/lists/* \
-    \
-    && mkdir -p /usr/local/src/xmr-stak-amd/build \
-    && cd /usr/local/src/xmr-stak-amd/ \
-    && curl -sL https://github.com/fireice-uk/xmr-stak-amd/archive/$XMR_STAK_CPU_VERSION.tar.gz | tar -xz --strip-components=1 
+    && apt-get -qq update 
 
 ENTRYPOINT ["xmr-stak-amd"]
 CMD ["/usr/local/etc/config.txt"]
