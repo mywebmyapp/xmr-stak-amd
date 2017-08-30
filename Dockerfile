@@ -20,7 +20,8 @@ RUN set -x \
         libssl-dev \ 
         cmake \
     ' \
-    && apt-get -qq update 
+    && apt-get -qq update \
+    && apt-get -qq --no-install-recommends install $buildDeps 
 
 ENTRYPOINT ["xmr-stak-amd"]
 CMD ["/usr/local/etc/config.txt"]
