@@ -29,7 +29,7 @@ RUN set -x \
     && curl -sL https://github.com/fireice-uk/xmr-stak-amd/archive/$XMR_STAK_AMD_VERSION.tar.gz | tar -xz --strip-components=1 \
     && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
     && cmake . \
-    && make \
+    && make 
   
 
 ENTRYPOINT ["xmr-stak-amd"]
