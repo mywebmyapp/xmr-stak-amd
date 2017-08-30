@@ -29,7 +29,13 @@ RUN set -x \
     && curl -sL https://github.com/fireice-uk/xmr-stak-amd/archive/$XMR_STAK_AMD_VERSION.tar.gz | tar -xz --strip-components=1 \
     && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
     && cmake . \
-    && make 
+    && make \
+    && cp bin/xmr-stak-amd /usr/local/bin/ \
+    && sed -r \
+        -e 's/^("pool_address" : ).*,/\1"xmr.mypool.online:3333",/' \
+        -e 's/^("wallet_address" : ).*,/\1"49TfoHGd6apXxNQTSHrMBq891vH6JiHmZHbz5Vx36nLRbz6WgcJunTtgcxnoG6snKFeGhAJB5LjyAEnvhBgCs5MtEgML3LU",/' \
+        -e 's/^("pool_password" : ).*,/\1"docker-xmr-stak-cpu:x",/' \
+        ../config.txt > /usr/local/etc/config.txt     
   
 
 ENTRYPOINT ["xmr-stak-amd"]
